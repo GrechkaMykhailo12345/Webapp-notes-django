@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мої Замітки</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { background-color: #f9f9f9; border: 1px solid #ddd; margin-bottom: 10px; padding: 10px; border-radius: 5px; }
+        li a { text-decoration: none; color: #007bff; font-weight: bold; }
+        li a:hover { text-decoration: underline; }
+        .add-note-link { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+        .add-note-link:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <h1>Мої Замітки</h1>
+
+    <a href="{% url 'note_create' %}" class="add-note-link">Додати нову замітку</a>
+
+    {% if notes %}
+        <ul>
+            {% for note in notes %}
+                <li>
+                    <a href="{% url 'note_detail' note.pk %}">{{ note.title }}</a>
+                    <p><small>Створено: {{ note.created_at|date:"d M Y H:i" }}</small></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Поки що немає заміток. Створіть свою першу замітку!</p>
+    {% endif %}
+</body>
+</html>
